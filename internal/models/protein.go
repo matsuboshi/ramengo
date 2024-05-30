@@ -1,6 +1,8 @@
 package models
 
-type Protein struct {
+import "sort"
+
+type protein struct {
 	ID            string  `json:"id"`
 	ImageInactive string  `json:"imageInactive"`
 	ImageActive   string  `json:"imageActive"`
@@ -9,25 +11,35 @@ type Protein struct {
 	Price         float64 `json:"price"`
 }
 
-func GetProteins() ([]Protein, error) {
-	proteins := []Protein{
-		{
-			ID:            "1",
-			ImageInactive: "https://tech.redventures.com.br/icons/pork/inactive.svg",
-			ImageActive:   "https://tech.redventures.com.br/icons/pork/active.svg",
-			Name:          "Chasu",
-			Description:   "A sliced flavourful pork meat with a selection of season vegetables.",
-			Price:         10,
-		},
-		{
-			ID:            "2",
-			ImageInactive: "https://tech.redventures.com.br/icons/pork/inactive.svg",
-			ImageActive:   "https://tech.redventures.com.br/icons/pork/active.svg",
-			Name:          "Tofu",
-			Description:   "We know you are vegetarian, or you might be broke. We got you covered.",
-			Price:         6,
-		},
+var proteinMap = map[int]protein{
+	1: {
+		ID:            "1",
+		ImageInactive: "https://tech.redventures.com.br/icons/pork/inactive.svg",
+		ImageActive:   "https://tech.redventures.com.br/icons/pork/active.svg",
+		Name:          "Chasu",
+		Description:   "You couldn't choose any better.",
+		Price:         10,
+	},
+	2: {
+		ID:            "2",
+		ImageInactive: "https://tech.redventures.com.br/icons/pork/inactive.svg",
+		ImageActive:   "https://tech.redventures.com.br/icons/pork/active.svg",
+		Name:          "Tofu",
+		Description:   "It's fine! We know you are broke.",
+		Price:         6,
+	},
+}
+
+func GetProteins() ([]protein, error) {
+	proteins := []protein{}
+
+	for _, protein := range proteinMap {
+		proteins = append(proteins, protein)
 	}
+
+	sort.Slice(proteins, func(i, j int) bool {
+		return proteins[i].Price < proteins[j].Price
+	})
 
 	return proteins, nil
 }

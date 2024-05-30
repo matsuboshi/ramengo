@@ -1,6 +1,8 @@
 package models
 
-type Broth struct {
+import "sort"
+
+type broth struct {
 	ID            string  `json:"id"`
 	ImageInactive string  `json:"imageInactive"`
 	ImageActive   string  `json:"imageActive"`
@@ -9,25 +11,35 @@ type Broth struct {
 	Price         float64 `json:"price"`
 }
 
-func GetBroths() ([]Broth, error) {
-	broths := []Broth{
-		{
-			ID:            "1",
-			ImageInactive: "https://tech.redventures.com.br/icons/salt/inactive.svg",
-			ImageActive:   "https://tech.redventures.com.br/icons/salt/active.svg",
-			Name:          "Salt",
-			Description:   "Simple like the seawater, nothing more",
-			Price:         10,
-		},
-		{
-			ID:            "2",
-			ImageInactive: "https://tech.redventures.com.br/icons/salt/inactive.svg",
-			ImageActive:   "https://tech.redventures.com.br/icons/salt/active.svg",
-			Name:          "Shoyu",
-			Description:   "Go for it if you like an extra flavor",
-			Price:         12,
-		},
+var brothMap = map[int]broth{
+	1: {
+		ID:            "1",
+		ImageInactive: "https://tech.redventures.com.br/icons/salt/inactive.svg",
+		ImageActive:   "https://tech.redventures.com.br/icons/salt/active.svg",
+		Name:          "Salt",
+		Description:   "It seems like you are lacking in taste.",
+		Price:         9,
+	},
+	2: {
+		ID:            "2",
+		ImageInactive: "https://tech.redventures.com.br/icons/salt/inactive.svg",
+		ImageActive:   "https://tech.redventures.com.br/icons/salt/active.svg",
+		Name:          "Shoyu",
+		Description:   "You sound like you know what you are doing.",
+		Price:         13,
+	},
+}
+
+func GetBroths() ([]broth, error) {
+	broths := []broth{}
+
+	for _, broth := range brothMap {
+		broths = append(broths, broth)
 	}
+
+	sort.Slice(broths, func(i, j int) bool {
+		return broths[i].Price < broths[j].Price
+	})
 
 	return broths, nil
 }
