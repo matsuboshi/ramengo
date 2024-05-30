@@ -12,5 +12,5 @@ Just run the following command:
 
     go run ./cmd/api
 
-And do the regular CURLs on `localhost:8080`. <br>
+And do the regular CURLs on `http://localhost:8080`. <br>
 Happy testing!
