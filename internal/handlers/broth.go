@@ -10,13 +10,13 @@ import (
 
 func GetBroths(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
-		helpers.CustomError(w, http.StatusMethodNotAllowed, "method not allowed")
+		helpers.CustomError(w, "method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
 	broths, err := models.GetBroths()
 	if err != nil {
-		helpers.CustomError(w, http.StatusInternalServerError, err.Error())
+		helpers.CustomError(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
