@@ -11,7 +11,8 @@ import (
 const defaultMessage = `YOU SHOULD TRY THESE ROUTES INSTEAD:
 - GET /broths
 - GET /proteins
-- POST /orders`
+- POST /orders
+- POST /order`
 
 func greet(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, defaultMessage)
