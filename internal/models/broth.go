@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"fmt"
 	"sort"
 )
 
@@ -14,8 +15,8 @@ type broth struct {
 	Price         float64 `json:"price"`
 }
 
-var brothMap = map[int]broth{
-	1: {
+var brothMap = map[string]broth{
+	"1": {
 		ID:            "1",
 		ImageInactive: "https://tech.redventures.com.br/icons/salt/inactive.svg",
 		ImageActive:   "https://tech.redventures.com.br/icons/salt/active.svg",
@@ -23,7 +24,7 @@ var brothMap = map[int]broth{
 		Description:   "It seems like you are lacking in taste.",
 		Price:         9,
 	},
-	2: {
+	"2": {
 		ID:            "2",
 		ImageInactive: "https://tech.redventures.com.br/icons/salt/inactive.svg",
 		ImageActive:   "https://tech.redventures.com.br/icons/salt/active.svg",
@@ -49,4 +50,13 @@ func GetBroths() ([]broth, error) {
 	})
 
 	return broths, nil
+}
+
+func GetBrothName(brothId string) (string, error) {
+	broth, ok := brothMap[brothId]
+	if !ok {
+		return "", errors.New(fmt.Sprint("could not find broth id ", brothId))
+	}
+
+	return broth.Name, nil
 }

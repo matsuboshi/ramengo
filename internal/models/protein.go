@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"fmt"
 	"sort"
 )
 
@@ -14,8 +15,8 @@ type protein struct {
 	Price         float64 `json:"price"`
 }
 
-var proteinMap = map[int]protein{
-	1: {
+var proteinMap = map[string]protein{
+	"1": {
 		ID:            "1",
 		ImageInactive: "https://tech.redventures.com.br/icons/pork/inactive.svg",
 		ImageActive:   "https://tech.redventures.com.br/icons/pork/active.svg",
@@ -23,7 +24,7 @@ var proteinMap = map[int]protein{
 		Description:   "You couldn't choose any better.",
 		Price:         10,
 	},
-	2: {
+	"2": {
 		ID:            "2",
 		ImageInactive: "https://tech.redventures.com.br/icons/pork/inactive.svg",
 		ImageActive:   "https://tech.redventures.com.br/icons/pork/active.svg",
@@ -49,4 +50,13 @@ func GetProteins() ([]protein, error) {
 	})
 
 	return proteins, nil
+}
+
+func GetProteinName(proteinId string) (string, error) {
+	protein, ok := proteinMap[proteinId]
+	if !ok {
+		return "", errors.New(fmt.Sprint("could not find protein id ", proteinId))
+	}
+
+	return protein.Name, nil
 }
