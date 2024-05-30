@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/matsuboshi/ramengo/internal/handlers"
+	"github.com/matsuboshi/ramengo/internal/middleware"
 )
 
 const defaultMessage = `YOU SHOULD TRY THESE ROUTES INSTEAD:
@@ -18,8 +19,8 @@ func greet(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", greet)
-	http.HandleFunc("/broths", handlers.GetBroths)
-	http.HandleFunc("/proteins", handlers.GetProteins)
+	http.HandleFunc("/broths", middleware.CorsMiddleware(handlers.GetBroths))
+	http.HandleFunc("/proteins", middleware.CorsMiddleware(handlers.GetProteins))
 	http.HandleFunc("POST /orders", handlers.PostOrder)
 	http.ListenAndServe(":8080", nil)
 }
