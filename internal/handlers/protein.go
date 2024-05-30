@@ -16,7 +16,7 @@ func GetProteins(w http.ResponseWriter, r *http.Request) {
 
 	proteins, err := models.GetProteins()
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		helpers.CustomError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 

@@ -1,6 +1,9 @@
 package models
 
-import "sort"
+import (
+	"errors"
+	"sort"
+)
 
 type broth struct {
 	ID            string  `json:"id"`
@@ -31,6 +34,10 @@ var brothMap = map[int]broth{
 }
 
 func GetBroths() ([]broth, error) {
+	if len(brothMap) == 0 {
+		return nil, errors.New("could not get broths")
+	}
+
 	broths := []broth{}
 
 	for _, broth := range brothMap {

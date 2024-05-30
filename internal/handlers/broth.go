@@ -16,7 +16,7 @@ func GetBroths(w http.ResponseWriter, r *http.Request) {
 
 	broths, err := models.GetBroths()
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		helpers.CustomError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 

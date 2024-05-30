@@ -1,6 +1,9 @@
 package models
 
-import "sort"
+import (
+	"errors"
+	"sort"
+)
 
 type protein struct {
 	ID            string  `json:"id"`
@@ -31,6 +34,10 @@ var proteinMap = map[int]protein{
 }
 
 func GetProteins() ([]protein, error) {
+	if len(proteinMap) == 0 {
+		return nil, errors.New("could not get proteins")
+	}
+
 	proteins := []protein{}
 
 	for _, protein := range proteinMap {
