@@ -17,7 +17,7 @@ func GenerateOrderID(secretKey string) (string, error) {
 	url := "https://api.tech.redventures.com.br/orders/generate-id"
 	req, err := http.NewRequest("POST", url, nil)
 	if err != nil {
-		return "", errors.New(fmt.Sprintln("Error creating request:", err))
+		return "", errors.New(fmt.Sprint("Error creating request: ", err))
 	}
 
 	req.Header.Set("x-api-key", secretKey)
@@ -26,7 +26,7 @@ func GenerateOrderID(secretKey string) (string, error) {
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		return "", errors.New(fmt.Sprintln("could not fetch data from id generator:", err))
+		return "", errors.New(fmt.Sprint("could not fetch data from id generator: ", err))
 	}
 	defer resp.Body.Close()
 
@@ -42,7 +42,7 @@ func GenerateOrderID(secretKey string) (string, error) {
 	}
 
 	if data.Message != "" {
-		return "", errors.New(fmt.Sprintln("Error generating new id:", data.Message))
+		return "", errors.New(fmt.Sprint("Error generating new id: ", data.Message))
 	}
 
 	if data.OrderId == "" {
