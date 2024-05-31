@@ -1,11 +1,13 @@
 package models
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 	"net/http"
+	"time"
 )
 
 type IncomingID struct {
@@ -15,7 +17,11 @@ type IncomingID struct {
 
 func GenerateOrderID(secretKey string) (string, error) {
 	url := "https://api.tech.redventures.com.br/orders/generate-id"
-	req, err := http.NewRequest("POST", url, nil)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	req, err := http.NewRequestWithContext(ctx, "POST", url, nil)
 	if err != nil {
 		return "", errors.New(fmt.Sprint("Error creating request: ", err))
 	}
