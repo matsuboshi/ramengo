@@ -13,4 +13,11 @@ Just run the following command:
     go run ./cmd/api
 
 And do the regular CURLs on `http://localhost:8080`. <br>
+
+## Do you prefer it on cloud?
+
+The following endpoint is hosted in a free cloud service (the cold start takes around 50 seconds):
+
+    https://ramengo-03li.onrender.com
+
 Happy testing!
