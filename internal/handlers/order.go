@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 
@@ -12,6 +13,19 @@ import (
 type OrderInput struct {
 	ProteinId string `json:"proteinId"`
 	BrothId   string `json:"brothId"`
+}
+
+func (o *OrderInput) ValidateData() error {
+	switch {
+	case o.BrothId == "" && o.ProteinId == "":
+		return errors.New("brothId and proteinId are required")
+	case o.BrothId == "":
+		return errors.New("brothId is required")
+	case o.ProteinId == "":
+		return errors.New("proteinId is required")
+	default:
+		return nil
+	}
 }
 
 func PostOrder(w http.ResponseWriter, r *http.Request) {
@@ -28,27 +42,18 @@ func PostOrder(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if err := orderInput.ValidateData(); err != nil {
+		helpers.CustomError(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
 	secretKey := r.Header.Get("x-api-key")
 	if secretKey == "" {
 		helpers.CustomError(w, "x-api-key header missing", http.StatusForbidden)
 		return
 	}
 
-	brothInput := orderInput.BrothId
-	proteinInput := orderInput.ProteinId
-	switch {
-	case brothInput == "" && proteinInput == "":
-		helpers.CustomError(w, "brothId and proteinId are required", http.StatusBadRequest)
-		return
-	case brothInput == "":
-		helpers.CustomError(w, "brothId is required", http.StatusBadRequest)
-		return
-	case proteinInput == "":
-		helpers.CustomError(w, "proteinId is required", http.StatusBadRequest)
-		return
-	}
-
-	order, err := models.CreateOrder(secretKey, brothInput, proteinInput)
+	order, err := models.CreateOrder(secretKey, orderInput.BrothId, orderInput.ProteinId)
 	if err != nil {
 		errorMessage := fmt.Sprint("could not place order: ", err)
 		helpers.CustomError(w, errorMessage, http.StatusInternalServerError)
