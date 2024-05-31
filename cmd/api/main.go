@@ -10,6 +10,7 @@ import (
 
 func greet(w http.ResponseWriter, r *http.Request) {
 	defaultMessage := fmt.Sprint(
+		"HELLO!!!\n",
 		"YOU SHOULD TRY THESE ROUTES INSTEAD:\n",
 		"- GET /broths\n",
 		"- GET /proteins\n",
