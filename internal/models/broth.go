@@ -20,8 +20,8 @@ var brothMap = map[string]broth{
 		ID:            "1",
 		ImageInactive: "https://tech.redventures.com.br/icons/salt/inactive.svg",
 		ImageActive:   "https://tech.redventures.com.br/icons/salt/active.svg",
-		Name:          "SALT",
-		Description:   "It seems like you are lacking in taste.",
+		Name:          "SHIO",
+		Description:   "It's just salt, are you sure???",
 		Price:         9,
 	},
 	"2": {
@@ -29,8 +29,16 @@ var brothMap = map[string]broth{
 		ImageInactive: "https://tech.redventures.com.br/icons/salt/inactive.svg",
 		ImageActive:   "https://tech.redventures.com.br/icons/salt/active.svg",
 		Name:          "SHOYU",
-		Description:   "You sound like you know what you are doing.",
+		Description:   "Shoyu is the most popular broth in Japan.",
 		Price:         13,
+	},
+	"3": {
+		ID:            "3",
+		ImageInactive: "https://tech.redventures.com.br/icons/salt/inactive.svg",
+		ImageActive:   "https://tech.redventures.com.br/icons/salt/active.svg",
+		Name:          "TONKOTSU",
+		Description:   "Rich and creamy pork broth. You'll love it!",
+		Price:         15,
 	},
 }
 
