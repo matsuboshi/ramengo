@@ -8,13 +8,15 @@ import (
 	"github.com/matsuboshi/ramengo/internal/middleware"
 )
 
-const defaultMessage = `YOU SHOULD TRY THESE ROUTES INSTEAD:
-- GET /broths
-- GET /proteins
-- POST /orders
-- POST /order`
-
 func greet(w http.ResponseWriter, r *http.Request) {
+	defaultMessage := fmt.Sprint(
+		"YOU SHOULD TRY THESE ROUTES INSTEAD:\n",
+		"- GET /broths\n",
+		"- GET /proteins\n",
+		"- POST /orders\n",
+		"- POST /order\n",
+	)
+
 	fmt.Fprintln(w, defaultMessage)
 }
 
