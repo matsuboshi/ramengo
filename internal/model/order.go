@@ -26,36 +26,42 @@ func CreateOrder(secretKey, brothOption, proteinOption string) (Order, error) {
 	go func() {
 		defer wg.Done()
 		name, err := BrothNameById(brothOption)
-		errChan <- err
 		brothChan <- name
+		if err != nil {
+			errChan <- err
+		}
 	}()
 
 	go func() {
 		defer wg.Done()
 		name, err := ProteinNameById(proteinOption)
-		errChan <- err
 		proteinChan <- name
+		if err != nil {
+			errChan <- err
+		}
 	}()
 
 	go func() {
 		defer wg.Done()
 		newId, err := GenerateOrderID(secretKey)
-		errChan <- err
 		orderIDChan <- newId
+		if err != nil {
+			errChan <- err
+		}
 	}()
 
 	wg.Wait()
 	close(errChan)
+
+	brothName := <-brothChan
+	proteinName := <-proteinChan
+	newOrderId := <-orderIDChan
 
 	for err := range errChan {
 		if err != nil {
 			return Order{}, err
 		}
 	}
-
-	brothName := <-brothChan
-	proteinName := <-proteinChan
-	newOrderId := <-orderIDChan
 
 	description := fmt.Sprintf("%s and %s Ramen", brothName, proteinName)
 
