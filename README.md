@@ -11,6 +11,7 @@ Set the `.env` file using the `.env.example` as a template.<br>
 
 Just run the following command:
 
+    source ./scripts/import_envs.sh
     make run
 
 Then follow the instructions along. <br>
