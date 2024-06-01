@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/matsuboshi/ramengo/internal/helpers"
+	"github.com/matsuboshi/ramengo/internal/errormsg"
 	"github.com/matsuboshi/ramengo/internal/models"
 )
 
@@ -30,7 +30,7 @@ func (o *OrderInput) ValidateData() error {
 
 func PostOrder(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
-		helpers.CustomError(w, "method not allowed", http.StatusMethodNotAllowed)
+		errormsg.CustomError(w, "method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
@@ -38,25 +38,25 @@ func PostOrder(w http.ResponseWriter, r *http.Request) {
 
 	if err := json.NewDecoder(r.Body).Decode(&orderInput); err != nil {
 		errorMessage := fmt.Sprintf("error decoding order input: %v", err)
-		helpers.CustomError(w, errorMessage, http.StatusBadRequest)
+		errormsg.CustomError(w, errorMessage, http.StatusBadRequest)
 		return
 	}
 
 	if err := orderInput.ValidateData(); err != nil {
-		helpers.CustomError(w, err.Error(), http.StatusBadRequest)
+		errormsg.CustomError(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
 	secretKey := r.Header.Get("x-api-key")
 	if secretKey == "" {
-		helpers.CustomError(w, "x-api-key header missing", http.StatusForbidden)
+		errormsg.CustomError(w, "x-api-key header missing", http.StatusForbidden)
 		return
 	}
 
 	order, err := models.CreateOrder(secretKey, orderInput.BrothId, orderInput.ProteinId)
 	if err != nil {
 		errorMessage := fmt.Sprint("could not place order: ", err)
-		helpers.CustomError(w, errorMessage, http.StatusInternalServerError)
+		errormsg.CustomError(w, errorMessage, http.StatusInternalServerError)
 		return
 	}
 

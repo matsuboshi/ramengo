@@ -1,4 +1,4 @@
-package helpers
+package errormsg
 
 import (
 	"encoding/json"
