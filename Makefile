@@ -1,4 +1,4 @@
 run:
-	./scripts/import_envs.sh
+	bash scripts/import_envs.sh
 	go run ./cmd/api
 
