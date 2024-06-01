@@ -3,7 +3,7 @@ package middleware
 import (
 	"net/http"
 
-	"github.com/matsuboshi/ramengo/internal/errormsg"
+	customError "github.com/matsuboshi/ramengo/internal/error"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -24,13 +24,13 @@ func Cors(next http.HandlerFunc) http.HandlerFunc {
 		incomingKey := r.Header.Get("x-api-key")
 
 		if incomingKey == "" {
-			errormsg.CustomError(w, "x-api-key header missing", http.StatusForbidden)
+			customError.WriteMessage(w, "x-api-key header missing", http.StatusForbidden)
 			return
 		}
 
 		err := bcrypt.CompareHashAndPassword([]byte(storedHashedKey), []byte(incomingKey))
 		if err != nil {
-			errormsg.CustomError(w, "unauthorized", http.StatusUnauthorized)
+			customError.WriteMessage(w, "unauthorized", http.StatusUnauthorized)
 			return
 		}
 

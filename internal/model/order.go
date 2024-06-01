@@ -3,6 +3,8 @@ package model
 import (
 	"fmt"
 	"sync"
+
+	customError "github.com/matsuboshi/ramengo/internal/error"
 )
 
 type Order struct {
@@ -11,29 +13,11 @@ type Order struct {
 	Image       string `json:"image"`
 }
 
-type SharedError struct {
-	mu  sync.Mutex
-	err error
-}
-
-func (e *SharedError) Update(err error) {
-	e.mu.Lock()
-	e.err = err
-	e.mu.Unlock()
-}
-
-func (e *SharedError) Read() error {
-	e.mu.Lock()
-	err := e.err
-	e.mu.Unlock()
-	return err
-}
-
 func CreateOrder(secretKey, brothOption, proteinOption string) (Order, error) {
 	brothName := ""
 	proteinName := ""
 	newOrderId := ""
-	sharedError := &SharedError{}
+	sharedError := &customError.SharedError{}
 
 	var wg sync.WaitGroup
 	wg.Add(3)

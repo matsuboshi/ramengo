@@ -4,19 +4,19 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/matsuboshi/ramengo/internal/errormsg"
+	customError "github.com/matsuboshi/ramengo/internal/error"
 	"github.com/matsuboshi/ramengo/internal/model"
 )
 
 func ListProteins(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
-		errormsg.CustomError(w, "method not allowed", http.StatusMethodNotAllowed)
+		customError.WriteMessage(w, "method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
 	proteins, err := model.AllProteins()
 	if err != nil {
-		errormsg.CustomError(w, err.Error(), http.StatusInternalServerError)
+		customError.WriteMessage(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
