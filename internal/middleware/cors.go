@@ -2,12 +2,13 @@ package middleware
 
 import (
 	"net/http"
+	"os"
 
 	customError "github.com/matsuboshi/ramengo/internal/error"
 	"golang.org/x/crypto/bcrypt"
 )
 
-var storedHashedKey = "$2a$10$oX/kWTonHw6YZm6apfplO.XX0ZxRAewn845gBWGMGVp/wMrgDQJwK"
+var storedHashedKey = os.Getenv("STORED_HASHED_KEY")
 
 func Cors(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
