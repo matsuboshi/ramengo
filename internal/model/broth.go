@@ -42,7 +42,7 @@ var brothMap = map[string]broth{
 	},
 }
 
-func GetBroths() ([]broth, error) {
+func AllBroths() ([]broth, error) {
 	if len(brothMap) == 0 {
 		return nil, errors.New("could not get broths")
 	}
@@ -60,7 +60,7 @@ func GetBroths() ([]broth, error) {
 	return broths, nil
 }
 
-func GetBrothName(brothId string) (string, error) {
+func BrothNameById(brothId string) (string, error) {
 	broth, ok := brothMap[brothId]
 	if !ok {
 		return "", errors.New(fmt.Sprint("could not find broth id ", brothId))

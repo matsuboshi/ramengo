@@ -42,7 +42,7 @@ var proteinMap = map[string]protein{
 	},
 }
 
-func GetProteins() ([]protein, error) {
+func AllProteins() ([]protein, error) {
 	if len(proteinMap) == 0 {
 		return nil, errors.New("could not get proteins")
 	}
@@ -60,7 +60,7 @@ func GetProteins() ([]protein, error) {
 	return proteins, nil
 }
 
-func GetProteinName(proteinId string) (string, error) {
+func ProteinNameById(proteinId string) (string, error) {
 	protein, ok := proteinMap[proteinId]
 	if !ok {
 		return "", errors.New(fmt.Sprint("could not find protein id ", proteinId))

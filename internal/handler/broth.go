@@ -8,13 +8,13 @@ import (
 	"github.com/matsuboshi/ramengo/internal/model"
 )
 
-func GetBroths(w http.ResponseWriter, r *http.Request) {
+func ListBroths(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		errormsg.CustomError(w, "method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
-	broths, err := model.GetBroths()
+	broths, err := model.AllBroths()
 	if err != nil {
 		errormsg.CustomError(w, err.Error(), http.StatusInternalServerError)
 		return

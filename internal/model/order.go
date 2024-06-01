@@ -9,12 +9,12 @@ type Order struct {
 }
 
 func CreateOrder(secretKey, brothOption, proteinOption string) (Order, error) {
-	brothName, err := GetBrothName(brothOption)
+	brothName, err := BrothNameById(brothOption)
 	if err != nil {
 		return Order{}, err
 	}
 
-	proteinName, err := GetProteinName(proteinOption)
+	proteinName, err := ProteinNameById(proteinOption)
 	if err != nil {
 		return Order{}, err
 	}
@@ -31,6 +31,8 @@ func CreateOrder(secretKey, brothOption, proteinOption string) (Order, error) {
 		Description: description,
 		Image:       "https://tech.redventures.com.br/icons/ramen/ramenChasu.png",
 	}
+
+	fmt.Printf("New order %s: %s\n", order.ID, order.Description)
 
 	return order, nil
 }
