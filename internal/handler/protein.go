@@ -1,11 +1,11 @@
-package handlers
+package handler
 
 import (
 	"encoding/json"
 	"net/http"
 
 	"github.com/matsuboshi/ramengo/internal/errormsg"
-	"github.com/matsuboshi/ramengo/internal/models"
+	"github.com/matsuboshi/ramengo/internal/model"
 )
 
 func GetProteins(w http.ResponseWriter, r *http.Request) {
@@ -14,7 +14,7 @@ func GetProteins(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	proteins, err := models.GetProteins()
+	proteins, err := model.GetProteins()
 	if err != nil {
 		errormsg.CustomError(w, err.Error(), http.StatusInternalServerError)
 		return

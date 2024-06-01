@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/matsuboshi/ramengo/internal/handlers"
+	"github.com/matsuboshi/ramengo/internal/handler"
 	"github.com/matsuboshi/ramengo/internal/middleware"
 )
 
@@ -23,9 +23,9 @@ func greet(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", greet)
-	http.HandleFunc("/broths", middleware.CorsMiddleware(handlers.GetBroths))
-	http.HandleFunc("/proteins", middleware.CorsMiddleware(handlers.GetProteins))
-	http.HandleFunc("/order", middleware.CorsMiddleware(handlers.PostOrder))
-	http.HandleFunc("/orders", middleware.CorsMiddleware(handlers.PostOrder))
+	http.HandleFunc("/broths", middleware.Cors(handler.GetBroths))
+	http.HandleFunc("/proteins", middleware.Cors(handler.GetProteins))
+	http.HandleFunc("/order", middleware.Cors(handler.PostOrder))
+	http.HandleFunc("/orders", middleware.Cors(handler.PostOrder))
 	http.ListenAndServe(":8080", nil)
 }

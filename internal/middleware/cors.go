@@ -9,7 +9,7 @@ import (
 
 var storedHashedKey = "$2a$10$oX/kWTonHw6YZm6apfplO.XX0ZxRAewn845gBWGMGVp/wMrgDQJwK"
 
-func CorsMiddleware(next http.HandlerFunc) http.HandlerFunc {
+func Cors(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "https://tech.redventures.com.br")
 		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")

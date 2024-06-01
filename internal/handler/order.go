@@ -1,4 +1,4 @@
-package handlers
+package handler
 
 import (
 	"encoding/json"
@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	"github.com/matsuboshi/ramengo/internal/errormsg"
-	"github.com/matsuboshi/ramengo/internal/models"
+	"github.com/matsuboshi/ramengo/internal/model"
 )
 
 type OrderInput struct {
@@ -53,7 +53,7 @@ func PostOrder(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	order, err := models.CreateOrder(secretKey, orderInput.BrothId, orderInput.ProteinId)
+	order, err := model.CreateOrder(secretKey, orderInput.BrothId, orderInput.ProteinId)
 	if err != nil {
 		errorMessage := fmt.Sprint("could not place order: ", err)
 		errormsg.CustomError(w, errorMessage, http.StatusInternalServerError)
