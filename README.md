@@ -4,17 +4,18 @@ This repository is an attempt to showcase few of my Golang skills. Let the games
 
 ## Setup
 
-Requires Go 1.22.3 or higher.
+Requires Go 1.22.3 or higher.<br>
+Set the `.env` file using the `.env.example` as a template.<br>
 
 ## How to run
 
 Just run the following command:
 
-    go run ./cmd/api
+    make run
 
-And do the regular CURLs on `http://localhost:8080`. <br>
+Then follow the instructions along. <br>
 
-## Do you prefer it on cloud?
+## Do you prefer it from the cloud?
 
 The following endpoint is hosted in a free cloud service (the cold start takes around 50 seconds):
 
