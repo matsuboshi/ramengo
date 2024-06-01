@@ -9,20 +9,47 @@ type Order struct {
 }
 
 func CreateOrder(secretKey, brothOption, proteinOption string) (Order, error) {
-	brothName, err := BrothNameById(brothOption)
+	brothChan := make(chan string)
+	proteinChan := make(chan string)
+	orderIDChan := make(chan string)
+	errChan := make(chan error)
+	defer close(errChan)
+
+	go func() {
+		defer close(brothChan)
+		name, err := BrothNameById(brothOption)
+		errChan <- err
+		brothChan <- name
+	}()
+
+	go func() {
+		defer close(proteinChan)
+		name, err := ProteinNameById(proteinOption)
+		errChan <- err
+		proteinChan <- name
+	}()
+
+	go func() {
+		defer close(orderIDChan)
+		newId, err := GenerateOrderID(secretKey)
+		errChan <- err
+		orderIDChan <- newId
+	}()
+
+	var err error = nil
+	for i := 0; i < 3; i++ {
+		currentError := <-errChan
+		if currentError != nil {
+			err = currentError
+		}
+	}
 	if err != nil {
 		return Order{}, err
 	}
 
-	proteinName, err := ProteinNameById(proteinOption)
-	if err != nil {
-		return Order{}, err
-	}
-
-	newOrderId, err := GenerateOrderID(secretKey)
-	if err != nil {
-		return Order{}, err
-	}
+	brothName := <-brothChan
+	proteinName := <-proteinChan
+	newOrderId := <-orderIDChan
 
 	description := fmt.Sprintf("%s and %s Ramen", brothName, proteinName)
 
