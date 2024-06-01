@@ -11,14 +11,29 @@ type Order struct {
 	Image       string `json:"image"`
 }
 
+type SharedError struct {
+	mu  sync.Mutex
+	err error
+}
+
+func (e *SharedError) Update(err error) {
+	e.mu.Lock()
+	e.err = err
+	e.mu.Unlock()
+}
+
+func (e *SharedError) Read() error {
+	e.mu.Lock()
+	err := e.err
+	e.mu.Unlock()
+	return err
+}
+
 func CreateOrder(secretKey, brothOption, proteinOption string) (Order, error) {
-	brothChan := make(chan string, 1)
-	proteinChan := make(chan string, 1)
-	orderIDChan := make(chan string, 1)
-	errChan := make(chan error, 3)
-	defer close(brothChan)
-	defer close(proteinChan)
-	defer close(orderIDChan)
+	brothName := ""
+	proteinName := ""
+	newOrderId := ""
+	sharedError := &SharedError{}
 
 	var wg sync.WaitGroup
 	wg.Add(3)
@@ -26,49 +41,43 @@ func CreateOrder(secretKey, brothOption, proteinOption string) (Order, error) {
 	go func() {
 		defer wg.Done()
 		name, err := BrothNameById(brothOption)
-		brothChan <- name
+		brothName = name
 		if err != nil {
-			errChan <- err
+			sharedError.Update(err)
 		}
 	}()
 
 	go func() {
 		defer wg.Done()
 		name, err := ProteinNameById(proteinOption)
-		proteinChan <- name
+		proteinName = name
 		if err != nil {
-			errChan <- err
+			sharedError.Update(err)
 		}
 	}()
 
 	go func() {
 		defer wg.Done()
 		newId, err := GenerateOrderID(secretKey)
-		orderIDChan <- newId
+		newOrderId = newId
 		if err != nil {
-			errChan <- err
+			sharedError.Update(err)
 		}
 	}()
 
 	wg.Wait()
-	close(errChan)
 
-	brothName := <-brothChan
-	proteinName := <-proteinChan
-	newOrderId := <-orderIDChan
-
-	for err := range errChan {
-		if err != nil {
-			return Order{}, err
-		}
+	err := sharedError.Read()
+	if err != nil {
+		return Order{}, err
 	}
 
 	description := fmt.Sprintf("%s and %s Ramen", brothName, proteinName)
 
 	order := Order{
-		ID:          newOrderId,
-		Description: description,
-		Image:       "https://tech.redventures.com.br/icons/ramen/ramenChasu.png",
+		newOrderId,
+		description,
+		"https://tech.redventures.com.br/icons/ramen/ramenChasu.png",
 	}
 
 	fmt.Printf("New order %s: %s\n", order.ID, order.Description)
