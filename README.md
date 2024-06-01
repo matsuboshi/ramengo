@@ -4,7 +4,7 @@ This repository is an attempt to showcase few of my Golang skills. Let the games
 
 ## Setup
 
-Requires Go 1.22.2 or greater.
+Requires Go 1.22.3 or higher.
 
 ## How to run
 
