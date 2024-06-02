@@ -32,24 +32,36 @@ The following endpoint is hosted in a free cloud service (the cold start takes a
 
 ## How to test (CURL)
 
+<table>
+<thead><tr><th>Route</th><th>CURL</th></tr></thead>
+<tbody>
+<tr><td>GET broths</td><td>
+
 ```bash
-# GET broths
 curl http://localhost:8080/broths -X GET \
 -H 'x-api-key: ZtVdh8XQ2U8pWI2gmZ7f796Vh8GllXoN7mr0djNf'
 ```
 
+</td></tr>
+<tr><td>GET proteins</td><td>
+
 ```bash
-# GET proteins
 curl http://localhost:8080/proteins -X GET \
 -H 'x-api-key: ZtVdh8XQ2U8pWI2gmZ7f796Vh8GllXoN7mr0djNf'
 ```
 
+</td></tr>
+<tr><td>POST order</td><td>
+
 ```bash
-# POST order
 curl http://localhost:8080/order -X POST \
 -H "x-api-key: ZtVdh8XQ2U8pWI2gmZ7f796Vh8GllXoN7mr0djNf" \
 -H "Content-Type: application/json" \
 -d '{"brothId": "1", "proteinId": "1"}'
 ```
+
+</td></tr>
+</tbody>
+</table>
 
 Happy testing!
