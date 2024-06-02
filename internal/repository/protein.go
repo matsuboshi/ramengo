@@ -40,7 +40,7 @@ func AllProteins() ([]model.Protein, error) {
 		return nil, errors.New("could not get proteins")
 	}
 
-	proteins := []model.Protein{}
+	proteins := make([]model.Protein, 0, len(proteinMap))
 
 	for _, protein := range proteinMap {
 		proteins = append(proteins, protein)

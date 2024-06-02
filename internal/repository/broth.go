@@ -40,7 +40,7 @@ func AllBroths() ([]model.Broth, error) {
 		return nil, errors.New("could not get broths")
 	}
 
-	broths := []model.Broth{}
+	broths := make([]model.Broth, 0, len(brothMap))
 
 	for _, broth := range brothMap {
 		broths = append(broths, broth)
