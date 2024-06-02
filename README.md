@@ -16,7 +16,7 @@ Just run the following commands:
 cp .env.example .env
 
 # Export the environment variables
-source ./scripts/import_envs.sh
+source ./scripts/export_envs.sh
 
 # Run the application
 make run
