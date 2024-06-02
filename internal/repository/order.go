@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"sync"
 
+	"github.com/matsuboshi/ramengo/internal/client"
 	customError "github.com/matsuboshi/ramengo/internal/error"
 )
 
@@ -42,7 +43,7 @@ func CreateOrder(secretKey, brothOption, proteinOption string) (Order, error) {
 
 	go func() {
 		defer wg.Done()
-		newId, err := GenerateOrderID(secretKey)
+		newId, err := client.GenerateOrderID(secretKey)
 		newOrderId = newId
 		if err != nil {
 			sharedError.Update(err)
