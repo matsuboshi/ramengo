@@ -9,10 +9,18 @@ Set the `.env` file using the `.env.example` as a template.<br>
 
 ## How to run
 
-Just run the following command:
+Just run the following commands:
 
-    source ./scripts/import_envs.sh
-    make run
+```bash
+# Set the .env file
+cp .env.example .env
+
+# Export the environment variables
+source ./scripts/import_envs.sh
+
+# Run the application
+make run
+```
 
 Then follow the instructions along. <br>
 
@@ -21,5 +29,27 @@ Then follow the instructions along. <br>
 The following endpoint is hosted in a free cloud service (the cold start takes around 50 seconds):
 
     https://ramengo-03li.onrender.com
+
+## How to test (CURL)
+
+```bash
+# GET broths
+curl http://localhost:8080/broths -X GET \
+-H 'x-api-key: ZtVdh8XQ2U8pWI2gmZ7f796Vh8GllXoN7mr0djNf'
+```
+
+```bash
+# GET proteins
+curl http://localhost:8080/proteins -X GET \
+-H 'x-api-key: ZtVdh8XQ2U8pWI2gmZ7f796Vh8GllXoN7mr0djNf'
+```
+
+```bash
+# POST order
+curl http://localhost:8080/order -X POST \
+-H "x-api-key: ZtVdh8XQ2U8pWI2gmZ7f796Vh8GllXoN7mr0djNf" \
+-H "Content-Type: application/json" \
+-d '{"brothId": "1", "proteinId": "1"}'
+```
 
 Happy testing!
