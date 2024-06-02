@@ -4,7 +4,7 @@ This repository is an attempt to showcase few of my Golang skills. Let the games
 
 ## Setup
 
-Requires Go 1.22.3 or higher.<br>
+Requires Go 1.22 or higher.<br>
 Set the `.env` file using the `.env.example` as a template.<br>
 
 ## How to run
