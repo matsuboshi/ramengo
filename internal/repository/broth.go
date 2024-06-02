@@ -4,18 +4,11 @@ import (
 	"errors"
 	"fmt"
 	"sort"
+
+	"github.com/matsuboshi/ramengo/internal/model"
 )
 
-type broth struct {
-	ID            string  `json:"id"`
-	ImageInactive string  `json:"imageInactive"`
-	ImageActive   string  `json:"imageActive"`
-	Name          string  `json:"name"`
-	Description   string  `json:"description"`
-	Price         float64 `json:"price"`
-}
-
-var brothMap = map[string]broth{
+var brothMap = map[string]model.Broth{
 	"1": {
 		ID:            "1",
 		ImageInactive: "https://tech.redventures.com.br/icons/salt/inactive.svg",
@@ -42,12 +35,12 @@ var brothMap = map[string]broth{
 	},
 }
 
-func AllBroths() ([]broth, error) {
+func AllBroths() ([]model.Broth, error) {
 	if len(brothMap) == 0 {
 		return nil, errors.New("could not get broths")
 	}
 
-	broths := []broth{}
+	broths := []model.Broth{}
 
 	for _, broth := range brothMap {
 		broths = append(broths, broth)

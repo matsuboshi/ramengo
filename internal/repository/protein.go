@@ -4,18 +4,11 @@ import (
 	"errors"
 	"fmt"
 	"sort"
+
+	"github.com/matsuboshi/ramengo/internal/model"
 )
 
-type protein struct {
-	ID            string  `json:"id"`
-	ImageInactive string  `json:"imageInactive"`
-	ImageActive   string  `json:"imageActive"`
-	Name          string  `json:"name"`
-	Description   string  `json:"description"`
-	Price         float64 `json:"price"`
-}
-
-var proteinMap = map[string]protein{
+var proteinMap = map[string]model.Protein{
 	"1": {
 		ID:            "1",
 		ImageInactive: "https://tech.redventures.com.br/icons/pork/inactive.svg",
@@ -42,12 +35,12 @@ var proteinMap = map[string]protein{
 	},
 }
 
-func AllProteins() ([]protein, error) {
+func AllProteins() ([]model.Protein, error) {
 	if len(proteinMap) == 0 {
 		return nil, errors.New("could not get proteins")
 	}
 
-	proteins := []protein{}
+	proteins := []model.Protein{}
 
 	for _, protein := range proteinMap {
 		proteins = append(proteins, protein)

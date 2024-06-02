@@ -6,15 +6,10 @@ import (
 
 	"github.com/matsuboshi/ramengo/internal/client"
 	customError "github.com/matsuboshi/ramengo/internal/error"
+	"github.com/matsuboshi/ramengo/internal/model"
 )
 
-type Order struct {
-	ID          string `json:"id"`
-	Description string `json:"description"`
-	Image       string `json:"image"`
-}
-
-func CreateOrder(secretKey, brothOption, proteinOption string) (Order, error) {
+func CreateOrder(secretKey, brothOption, proteinOption string) (model.Order, error) {
 	brothName := ""
 	proteinName := ""
 	newOrderId := ""
@@ -54,12 +49,12 @@ func CreateOrder(secretKey, brothOption, proteinOption string) (Order, error) {
 
 	err := sharedError.Read()
 	if err != nil {
-		return Order{}, err
+		return model.Order{}, err
 	}
 
 	description := fmt.Sprintf("%s and %s Ramen", brothName, proteinName)
 
-	order := Order{
+	order := model.Order{
 		newOrderId,
 		description,
 		"https://tech.redventures.com.br/icons/ramen/ramenChasu.png",
