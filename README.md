@@ -12,6 +12,12 @@ Set the `.env` file using the `.env.example` as a template.<br>
 Just run the following commands:
 
 ```bash
+# Clone the repository
+git clone git@github.com:matsuboshi/ramengo.git
+
+# Change to the project directory
+cd ramengo
+
 # Set the .env file
 cp .env.example .env
 
