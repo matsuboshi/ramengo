@@ -13,6 +13,7 @@ func main() {
 	fmt.Println("Test the endpoint at https://tech.redventures.com.br")
 	fmt.Println("API URL: http://localhost:8080")
 	fmt.Println("API KEY: ZtVdh8XQ2U8pWI2gmZ7f796Vh8GllXoN7mr0djNf")
+	fmt.Println("")
 
 	http.HandleFunc("/", handler.Greet)
 	http.HandleFunc("/broths", middleware.Cors(handler.ListBroths))
