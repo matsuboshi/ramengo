@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	customError "github.com/matsuboshi/ramengo/internal/error"
-	"github.com/matsuboshi/ramengo/internal/model"
+	"github.com/matsuboshi/ramengo/internal/repository"
 )
 
 type OrderInput struct {
@@ -53,7 +53,7 @@ func PostOrder(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	order, err := model.CreateOrder(secretKey, orderInput.BrothId, orderInput.ProteinId)
+	order, err := repository.CreateOrder(secretKey, orderInput.BrothId, orderInput.ProteinId)
 	if err != nil {
 		errorMessage := fmt.Sprint("could not place order: ", err)
 		customError.WriteMessage(w, errorMessage, http.StatusInternalServerError)

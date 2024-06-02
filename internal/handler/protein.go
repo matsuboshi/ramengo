@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	customError "github.com/matsuboshi/ramengo/internal/error"
-	"github.com/matsuboshi/ramengo/internal/model"
+	"github.com/matsuboshi/ramengo/internal/repository"
 )
 
 func ListProteins(w http.ResponseWriter, r *http.Request) {
@@ -14,7 +14,7 @@ func ListProteins(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	proteins, err := model.AllProteins()
+	proteins, err := repository.AllProteins()
 	if err != nil {
 		customError.WriteMessage(w, err.Error(), http.StatusInternalServerError)
 		return
