@@ -54,10 +54,12 @@ func CreateOrder(secretKey, brothOption, proteinOption string) (model.Order, err
 
 	description := fmt.Sprintf("%s and %s Ramen", brothName, proteinName)
 
+	imageURL := "https://tech.redventures.com.br/icons/ramen/ramenChasu.png"
+
 	order := model.Order{
-		newOrderId,
-		description,
-		"https://tech.redventures.com.br/icons/ramen/ramenChasu.png",
+		ID:          newOrderId,
+		Description: description,
+		Image:       imageURL,
 	}
 
 	fmt.Printf("New order %s: %s\n", order.ID, order.Description)
