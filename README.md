@@ -1,8 +1,16 @@
 # LET THE GAMES BEGIN with RAMENGO
 
-This repository is an attempt to showcase few of my Golang skills. Let the games begin!
+This repository is an attempt to showcase few of my Golang skills. Let the games begin!<br>
 
-## Setup
+## Where is it hosted?
+
+The following endpoint is hosted in a free cloud service **(the cold start takes around 50 seconds)**:
+
+    https://ramengo-03li.onrender.com
+
+<br>
+
+## SETUP (to run locally)
 
 Requires Go 1.22 or higher.<br>
 Set the `.env` file using the `.env.example` as a template.<br><br>
@@ -55,14 +63,6 @@ When you are done testing, you can stop and remove the container:
 # Stop and remove the container
 docker-compose down
 ```
-
-<br>
-
-## Do you prefer it from the cloud?
-
-The following endpoint is hosted in a free cloud service (the cold start takes around 50 seconds):
-
-    https://ramengo-03li.onrender.com
 
 <br>
 
