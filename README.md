@@ -5,9 +5,9 @@ This repository is an attempt to showcase few of my Golang skills. Let the games
 ## Setup
 
 Requires Go 1.22 or higher.<br>
-Set the `.env` file using the `.env.example` as a template.<br>
+Set the `.env` file using the `.env.example` as a template.<br><br>
 
-## How to run
+## How to run (OPTION 1 - MAKE)
 
 Just run the following commands:
 
@@ -28,13 +28,43 @@ source ./scripts/export_envs.sh
 make run
 ```
 
-Then follow the instructions along. <br>
+Then follow the instructions along. <br><br>
+
+## How to run (OPTION 2 - DOCKER)
+
+Just run the following commands:
+
+```bash
+# Clone the repository
+git clone git@github.com:matsuboshi/ramengo.git
+
+# Change to the project directory
+cd ramengo
+
+# Set the .env file
+cp .env.example .env
+
+# Build the image, create and run the container
+docker-compose up -d --build
+```
+
+Then follow the instructions to test the API. <br><br>
+When you are done testing, you can stop and remove the container:
+
+```bash
+# Stop and remove the container
+docker-compose down
+```
+
+<br>
 
 ## Do you prefer it from the cloud?
 
 The following endpoint is hosted in a free cloud service (the cold start takes around 50 seconds):
 
     https://ramengo-03li.onrender.com
+
+<br>
 
 ## How to test (CURL)
 

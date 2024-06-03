@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  api:
+    container_name: ramengo-api
+    # build: .
+    build:
+      target: builder
+      context: .
+    # network_mode: host
+    ports:
+      - '8080:8080'
+    restart: always
+    env_file:
+      - .env
+    environment:
+      STORED_HASHED_KEY: ${STORED_HASHED_KEY_1}
+    entrypoint: ['/app/api']
