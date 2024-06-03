@@ -1,6 +1,6 @@
 # LET THE GAMES BEGIN with RAMENGO
 
-This repository is an attempt to showcase few of my Golang skills. Let the games begin!<br>
+This repository is an attempt to showcase few of my Golang skills. Let the games begin!<br><br>
 
 ## Where is it hosted?
 
